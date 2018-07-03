@@ -3,7 +3,7 @@ import pandas as pd
 import warnings
 import os.path
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="process.log", level=logging.INFO)
 
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression
@@ -22,7 +22,7 @@ class Classifier:
 
     def __init__(self, app, model, learning_rate=5e-5, max_iters=1000, add_intercept=True):
         try:
-            print("Initializing classifier")
+            logging.info("Initializing classifier")
             if not app:
                 raise Exception("App name must be specified")
             if not model:
@@ -54,35 +54,35 @@ class Classifier:
             self.app = app
             self.model = model
 
-            print("Classifier created")
+            logging.info("Classifier created")
         except Exception as e:
             logging.exception(str(e))
 
     def train(self):
         try:
-            print("initializing classifier training")
+            logging.info("initializing classifier training")
             if self.app.lower() == "newsreliability":
-                print("Loading training and test data")
+                logging.info("Loading training and test data")
                 train_data = pd.read_csv('newsfiles/fulltrain.csv', header=None)
                 test_data = pd.read_csv('newsfiles/balancedtest.csv', header=None)
 
-            print("Splitting training and test label and text")
+            logging.info("Splitting training and test label and text")
             train_X = train_data[1]
             train_Y = train_data[0]
             test_X = test_data[1]
             test_Y = test_data[0]
 
-            print("Creating TF-IDF N-gram vector")
+            logging.info("Creating TF-IDF N-gram vector")
             self.tfidf_vect_ngram, tfidf_ngram_train, tfidf_ngram_test = DataPrerocessor.generate_tfidf_ngrams(train_X, test_X, 100)
 
-            print("Training classifier")
+            logging.info("Training classifier")
             self.classifier.fit(tfidf_ngram_train, train_Y)
             
-            print("Get classifier accuracy")
+            logging.info("Get classifier accuracy")
             predictions = self.classifier.predict(tfidf_ngram_test)
             result = metrics.accuracy_score(predictions, test_Y)
 
-            print("Saving classifier")
+            logging.info("Saving classifier")
             if self.classifier:
                 if self.model.lower() == "maxent":
                     if self.app.lower() == "newsreliability":
@@ -95,7 +95,7 @@ class Classifier:
                     joblib.dump(self.classifier, "mnb-politifact.pkl")
                     joblib.dump(self.tfidf_vect_ngram, "tfidf-mnb-politifact.pkl")
 
-            print("Finish training classifier")
+            logging.info("Finish training classifier")
             return result
         except Exception as e:
             logging.exception(str(e))
@@ -105,7 +105,7 @@ class Classifier:
             if self.classifier == None or self.tfidf_vect_ngram == None:
                 self.train()
 
-            print("Predicting")
+            logging.info("Predicting")
             test_X = self.tfidf_vect_ngram.transform(X)
 
             result = self.classifier.predict(test_X)
@@ -146,7 +146,7 @@ class Model:
     """
     def train(self, X, y, maxIter=100000):
         new_X = X.copy() # Get copy of X
-        print("Training model...")
+        logging.info("Training model...")
 
         # Initialize theta attribute with matrix containing 1
         # and make it ((features columns + 1) x 1) size
@@ -164,7 +164,7 @@ class Model:
 
             logging.info("Iteration " + str(i) + " weights: {}".format(self.theta))
 
-        # Indicate training completed and print weight results
+        # Indicate training completed and logging.info weight results
         logging.info("Training completed\n")
         logging.info("Weights: {}\n".format(self.theta))
 

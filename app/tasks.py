@@ -1,6 +1,6 @@
 import json
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="process.log", level=logging.INFO)
 
 from FinalProject.celery import app
 from channels.layers import get_channel_layer

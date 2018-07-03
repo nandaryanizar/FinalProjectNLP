@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="process.log", level=logging.INFO)
 
 from sklearn import model_selection
 from sklearn.feature_extraction.text import TfidfVectorizer
