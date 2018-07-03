@@ -3,7 +3,7 @@ from asgiref.sync import async_to_sync
 import json
 from . import tasks
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="process.log", level=logging.INFO)
 
 class ProcessConsumer(WebsocketConsumer):
     def connect(self):
