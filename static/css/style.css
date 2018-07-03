@@ -1,0 +1,162 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    font-family: Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+}
+
+/* h2 {
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #303030;
+      font-weight: 600;
+      margin-bottom: 30px;
+  } */
+
+h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.jumbotron {
+    margin: 0;
+    background-color: #f4511e;
+    color: #fff;
+    padding: 60px 25px;
+    height: 100vh;
+    font-family: Montserrat, sans-serif;
+}
+
+.container-fluid {
+    padding: 60px 50px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #f4511e;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+
+.navbar-nav {
+    float: right;
+}
+
+.nav-item {
+    list-style-type: none;
+    padding: 0px 15px;
+}
+
+.nav-link {
+    display: inline-flex;
+    color: white !important;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-link:hover {
+    color: #777 !important;
+    text-decoration: none;
+
+}
+
+/*Edit*/
+
+.input-group {
+    text-align: center;
+}
+
+.textarea {
+    color: #f4511e;
+}
+
+/*Popup*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 110%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 50%;
+    margin-top: 13%;
+}
+
+/* The Close Button */
+
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-group {
+    float: left;
+    width: 100%;
+}
+
+#myBtn {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    float: left;
+}
+
+.txtBtn {
+    color: white;
+    font-size: 20px;
+    margin-top: 5%;
+}
+
+.txtModel {
+    text-align: center;
+}
+
+#ddlModel {
+    color: #000;
+}
+
+#desc {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.swal-text {
+    text-align: center;
+}

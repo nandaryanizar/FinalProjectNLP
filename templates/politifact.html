@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Theme Made By www.w3schools.com - No Copyright -->
+	<title>Predicting Truthfullness</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<!-- <link rel="stylesheet" href="{% static 'css/sweetalert2.css' %}" type="text/css"> -->
+
+	<script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{% url 'home' %}" style="color: white;">NLP</a>
+			</div>
+			<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'news' %}">News Reliability</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'truthfulness' %}">Predicting Truthfulness</a>
+					</li>
+				</ul>
+			<div class="collapse navbar-collapse" id="myNavbar">
+
+			</div>
+		</div>
+	</nav>
+
+	<div class="jumbotron text-center">
+		<div>
+			<h2>Predicting Truthfulness</h2>
+			<!-- <p>Kelompok Ngaco</p>  -->
+			<form id="form">
+				<div class="input-group col-lg-offset-4 col-lg-4">
+					<!-- <input type="title" class="form-control" size="50" placeholder="Title" required> -->
+					<label for="text">Please select a classifier:</label>
+					<br>
+					<select id="ddlModel" required>
+						<option value="maxent">Maximum Entropy</option>
+						<option value="multinomialnb">Multinomial Naive Bayes</option>
+					</select>
+				</div>
+				<div class="input-group col-lg-offset-4 col-lg-4">
+					<!-- <input type="title" class="form-control" size="50" placeholder="Title" required> -->
+					<label for="text">Input your article here: </label>
+				</div>
+				<!-- <br> -->
+				<div class="col-lg-offset-2 col-lg-8 col-lg-offset-2 textarea">
+					<textarea rows="12" cols="100" id="text" required></textarea>
+				</div>
+
+				<div class="btn-group col-lg-offset-5 col-lg-2 col-lg-offset-5">
+					<button id="myBtn" class="btn btn-success" type="submit">
+						<h2 class="txtBtn">Check Out !</h2>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h1 class="txtModel">Berita Ini Adalah
+				<span style="color: #f4511e;"> Hoax</span>
+			</h1>
+			<h5>Berita yang Sebenarnya dapat anda lihat pada kolom Dibawah ini :</h5>
+
+			<div>
+				<div class="image col-lg-4">
+					<a href="www.detik.com">
+						<img src="https://akcdn.detik.net.id/community/media/visual/2018/04/05/653e7cfb-7a8c-4410-9be6-01d88f9e17de_169.jpeg?w=700&q=90"
+						    width="80%">
+					</a>
+				</div>
+
+				<div class="col-lg-8">
+					<p>
+						Jakarta - Facebook di sepanjang kuartal pertama 2018 telah menindak 1,9 juta konten terkait terorisme Al-Qaeda dan ISIS.
+						Jumlahnya meningkat 73% dari tahun sebelumnya yang mencapai 1,1 juta konten. Temuan ini merupakan hasil dari meningkatnya
+						kemampuan machine learning yang memudahkan Facebook untuk menemukan konten-konten berbau terorisme di jejaring sosialnya.
+						Facebook bahkan mampu menemukan 99,5% konten yang terkait dengan terorisme sebelum konten tersebut dilaporkan oleh
+						pengguna, seperti dikutip detikINET dari The Verge, Kamis (17/5/2018)
+						<a href="www.google.com">(Read More..)</a>
+					</p>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			var socket = new WebSocket("ws://localhost:8000/ws/");
+			socket.onmessage = function (e) {
+				var msg = JSON.parse(e.data);
+				console.log(msg.message);
+
+				if (msg.message == "Initializing process") {
+					// Open modal
+					swal({
+						title: msg.message,
+						text: "Please wait...",
+						icon: "{% static 'image/Spinner-1s-200px.gif' %}",
+						closeOnClickOutside: false,
+						buttons: {}
+					});
+				}
+				else if (msg.message == "Predicting text") {
+					// Assign message to modal
+					$('.swal-title').text(msg.message);
+				}				
+				else if (msg.message == "Failed") {
+					swal("Failed!", "Something went wrong when processing the requests, please try again later", "error");
+				}
+				else {
+					swal("Process completed", "Your article is identified as " + msg.message, "success");
+				}
+				
+				return;
+			};
+
+			$("#form").on("submit", function (e) {
+				e.preventDefault();
+
+				if ($("#text").val().length == 0)
+					return;
+
+				var msg = {
+					"query": "predict",
+					"app": "predictingtruthfullness",
+					"model": $('#ddlModel').val(),
+					"text": $("#text").val()
+				};
+
+				swal({
+					title: "Are you sure want to predict the text?",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+					animation: false
+				}).then((start) => {
+					if (start) {
+						socket.send(JSON.stringify(msg));
+					}
+				});
+			});
+		});
+		var modal = document.getElementById('myModal');
+		var btn = document.getElementById("myBtn");
+
+		var title = document.getElementsByClassName("input-group");
+
+		var span = document.getElementsByClassName("close")[0];
+
+		btn.onclick = function () {
+			modal.style.display = "block";
+			title.style.display = "none"
+		}
+
+		span.onclick = function () {
+			modal.style.display = "none";
+		}
+
+		// window.onclick = function(event) {
+		//     if (event.target == modal) {
+		//         modal.style.display = "none";
+		//     }
+		// }
+	</script>
+
+
+</body>
+
+</html>

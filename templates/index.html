@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Theme Made By www.w3schools.com - No Copyright -->
+	<title>Home Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/sweetalert2.css' %}" type="text/css"> -->
+	
+	<script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="{% url 'home' %}" style="color: white;">NLP</a>
+            </div>
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news' %}">News Reliability</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'truthfulness' %}">Predicting Truthfulness</a>
+                    </li>
+                </ul>
+			<div class="collapse navbar-collapse" id="myNavbar">
+
+			</div>
+		</div>
+	</nav>
+
+	<div class="jumbotron text-center">
+        <h2>Home Page</h2>
+        <br>
+		<div id="desc" class="col-lg-offset-2 col-lg-8 col-lg-offset-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis fugiat quis perferendis soluta quod cumque minus ad? Cum consequuntur, dolor possimus consequatur consectetur sequi pariatur impedit, distinctio ab ducimus dolorem.
+        </div>
+        <div class="col-lg-offset-2 col-lg-8 col-lg-offset-2">
+
+        </div>
+	</div>
+</body>
+
+</html>

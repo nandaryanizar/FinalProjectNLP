@@ -1,0 +1,4 @@
+newsfiles/
+politifact_data/
+wiktionarylists/
+tfidf-maxent-news.pkl
