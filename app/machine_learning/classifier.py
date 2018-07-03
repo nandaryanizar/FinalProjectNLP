@@ -73,7 +73,7 @@ class Classifier:
             test_Y = test_data[0]
 
             print("Creating TF-IDF N-gram vector")
-            self.tfidf_vect_ngram, tfidf_ngram_train, tfidf_ngram_test = DataPrerocessor.generate_tfidf_ngrams(train_X, test_X)
+            self.tfidf_vect_ngram, tfidf_ngram_train, tfidf_ngram_test = DataPrerocessor.generate_tfidf_ngrams(train_X, test_X, 100)
 
             print("Training classifier")
             self.classifier.fit(tfidf_ngram_train, train_Y)
@@ -90,10 +90,10 @@ class Classifier:
                         joblib.dump(self.tfidf_vect_ngram, "tfidf-maxent-news.pkl")
                     elif self.app.lower() == "predictingtruthfullness":
                         joblib.dump(self.classifier, "maxent-politifact.pkl")
-                        joblib.dump(self.classifier, "tfidf-maxent-politifact.pkl")
+                        joblib.dump(self.tfidf_vect_ngram, "tfidf-maxent-politifact.pkl")
                 elif self.model.lower() == "multinomialnb":
                     joblib.dump(self.classifier, "mnb-politifact.pkl")
-                    joblib.dump(self.classifier, "tfidf-mnb-politifact.pkl")
+                    joblib.dump(self.tfidf_vect_ngram, "tfidf-mnb-politifact.pkl")
 
             print("Finish training classifier")
             return result
