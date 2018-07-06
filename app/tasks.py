@@ -25,7 +25,7 @@ def predict(channel_name, data):
         result = classifier.predict([data['text']])
 
         if result:
-            async_to_sync(channel_layer.send)(channel_name, {"type": "notify", "message": str(result[0])})
+            async_to_sync(channel_layer.send)(channel_name, {"type": "notify", "message": str(result)})
         else:
             async_to_sync(channel_layer.send)(channel_name, {"type": "notify", "message": "Failed"})
     except Exception as e:

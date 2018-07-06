@@ -45,8 +45,8 @@ class Classifier:
             elif model.lower() == "multinomialnb":
                 if os.path.isfile("mnb-politifact.pkl"):
                     self.classifier = joblib.load("mnb-politifact.pkl")
-                if os.path.isfile("tfidf-mnb-politifact.pkl"):
-                    self.tfidf_vect_ngram = joblib.load("tfidf-mnb-politifact.pkl")
+                if os.path.isfile("tfidf-maxent-politifact.pkl"):
+                    self.tfidf_vect_ngram = joblib.load("tfidf-maxent-politifact.pkl")
 
                 if not self.classifier:
                     self.classifier = MultinomialNB()

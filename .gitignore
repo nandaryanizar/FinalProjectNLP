@@ -1,4 +1,9 @@
 newsfiles/
 politifact_data/
 wiktionarylists/
+process.log
 tfidf-maxent-news.pkl
+tfidf-maxent-politifact.pkl
+mnb-politifact.pkl
+maxent-politifact.pkl
+maxent-news.pkl

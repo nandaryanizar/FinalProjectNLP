@@ -104,7 +104,7 @@
 
 	<script>
 		$(document).ready(function () {
-			var socket = new WebSocket("ws://localhost:8000/ws/");
+			var socket = new WebSocket("ws://"+ window.location.host +"/ws/");
 			socket.onmessage = function (e) {
 				var msg = JSON.parse(e.data);
 				console.log(msg.message);

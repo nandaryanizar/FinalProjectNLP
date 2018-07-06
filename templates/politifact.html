@@ -114,8 +114,8 @@
 	</div>
 
 	<script>
-		$(document).ready(function () {
-			var socket = new WebSocket("ws://localhost:8000/ws/");
+				$(document).ready(function () {
+			var socket = new WebSocket("ws://"+ window.location.host +"/ws/");
 			socket.onmessage = function (e) {
 				var msg = JSON.parse(e.data);
 				console.log(msg.message);
@@ -170,21 +170,21 @@
 				});
 			});
 		});
-		var modal = document.getElementById('myModal');
-		var btn = document.getElementById("myBtn");
+		// var modal = document.getElementById('myModal');
+		// var btn = document.getElementById("myBtn");
 
-		var title = document.getElementsByClassName("input-group");
+		// var title = document.getElementsByClassName("input-group");
 
-		var span = document.getElementsByClassName("close")[0];
+		// var span = document.getElementsByClassName("close")[0];
 
-		btn.onclick = function () {
-			modal.style.display = "block";
-			title.style.display = "none"
-		}
+		// btn.onclick = function () {
+		// 	modal.style.display = "block";
+		// 	title.style.display = "none"
+		// }
 
-		span.onclick = function () {
-			modal.style.display = "none";
-		}
+		// span.onclick = function () {
+		// 	modal.style.display = "none";
+		// }
 
 		// window.onclick = function(event) {
 		//     if (event.target == modal) {
